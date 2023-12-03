@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <title>Trabalho DIW</title>
+</head>
+
+<body>
+    <header>
+        <div class="logotipoHeader">
+            <img src="img/logo.jpg" alt="logotipo">
+        </div>
+        <div class="linkHeader">
+            <ul>
+                <li><a href="#"></a>Ínicio</li>
+                <li><a href="#"></a>Mapa</li>
+                <li><a href="album.html">Albuns</li></a>
+            </ul>
+        </div>
+    </header>
+    <div class="main-container">
+
+        <section>
+            <p class="titles">Destaque</p>
+            <hr>
+            <div class="main-slide">
+                <div id="carouselExampleIndicators" class="carousel slide d-flex justify-content-center m-3">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                   
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+        <section>
+            <p class="titles">Mapa</p>
+            <hr>
+            <div id="map" width="100%" height="400"></div>
+                
+        </section>
+        <section>
+            <p class="titles">Recomenção de filmes da critíca</p>
+            <hr>
+            <div class="album_img" id="todos_os_albuns">
+                
+            </div>
+
+        </section>
+        <footer>
+            <p class="titles">Creditos</p>
+            <hr>
+            <div class="row">
+                <div class="col-md-8">
+                    <h6 class="text-dark">Sobre</h6>
+                    <p class="text-">Conheça Eduardo, uma pessoa multifacetada que encontra o equilíbrio perfeito
+                        entre os desafios acadêmicos, uma vida saudável e a paixão pelo cinema. Com uma agenda repleta
+                        de atividades, Eduardo é uma pessoa que busca constantemente o crescimento pessoal e o prazer
+                        em cada aspecto da vida.
+                    </p>
+                </div>
+
+                <div class="col-md-3">
+                    <h6 class="text-dark">Responsável pelo site</h6>
+                    <div class="d-flex">
+                        <img src="img/foto15.png" alt="" width="100" height="100">
+                        <div class="ms-3">
+                            <p class="text-dark"><strong>Aluno:</strong> Eduardo Eugênio Pereira Neto</p>
+                            <p class="text-dark"><strong>Curso:</strong> Sistema de Informações</p>
+                            <p class="text-dark"><strong>Turma:</strong> Noite</p>
+                        </div>
+                    </div>
+                    <div class="d-flex ">
+                        <h6 class="text-dark mt-3">Redes Sociais:</h6>
+                        <div class="ms-4 mb-4">
+                            <a href="#"><img src="img/face.webp" alt="" width="60" height="50"></a>
+                            <a href="#"><img src="img/insta.png" alt="" width="50" height="50"></a>
+                            <a href="#"><img src="img/x.webp" alt="" width="50" height="50"></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script>
+        const url = "https://jsonserver-1--eduardomeunovon.repl.co/albuns"
+        
+        const containerAlbuns = document.querySelector("#todos_os_albuns")
+        let albuns = []
+        const carousel = document.querySelector(".carousel-inner");
+        const albuns_container = document.querySelector("#albuns");
+        carousel.innerHTML = "";
+        mapboxgl.accessToken =
+        "pk.eyJ1Ijoicm9tbWVsY2FybmVpcm8tcHVjIiwiYSI6ImNsb3ZuMTBoejBsd2gyamwzeDZzcWl5b3oifQ.VPWc3qoyon8Z_-URfKpvKg";
+
+        const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: [-43.9397233, -19.9332786],
+        zoom: 1,
+      });
+        const buscarTodosAlbuns = async () => {
+            const resposta = await fetch(url)
+            return await resposta.json()
+
+        }
+        const renderizarAlbuns = async () => {
+            containerAlbuns.innerHTML = ""
+                const albuns = await buscarTodosAlbuns()
+                albuns.forEach((album) => {
+                    if (album.destaque) {
+              carousel.insertAdjacentHTML(
+                "beforeend",
+                `
+                  <div class="carousel-item ${
+                    document.querySelector(".carousel-item.active")
+                      ? ""
+                      : "active"
+                  }">
+                    <img src="/img/${album.url_capa}" class="d-block"/>
+                  </div>
+                  `
+              );
+            }
+                    containerAlbuns.insertAdjacentHTML(
+                        "beforeend",
+                        `
+                        <div class="img_album">
+                        <a href="album.html?id=${album.id}">
+                        <img src="/img/${album.url_capa}" alt=""></a>
+                        <h3>${album.titulo}</h3>
+                        <p>${album.descricao}</p>
+                        </div>
+                        `
+                    );
+                    new mapboxgl.Marker({ color: "blue" })
+              .setLngLat([album.longitude, album.latitude])
+              .setPopup(
+                new mapboxgl.Popup({ offset: 25 }).setHTML(
+                    `<h3><a href="/album.html?id=${album.id}" style="font-size:14px;" target="_blank">${album.titulo}</a></h3>`
+                )
+              )
+              .addTo(map);
+                });
+      
+        };
+        renderizarAlbuns()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+    <title>Detalhes do album</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <div class="logotipoHeader">
+            <img src="img/logo.jpg" alt="logotipo">
+        </div>
+        <div class="linkHeader">
+            <ul>
+                <li><a href="index.html">Inicio</li></a>
+                <li><a href="#"></a>Mapa</li>
+                <li><a href="#"></a>Albuns</li>
+            </ul>
+        </div>
+    </header>
+    <div class="main-container">
+        <h1 class="text-white mt-3" id="tituloalbum"></h1>
+        <hr>
+        <section>
+            <div class="detalhes_album">
+                <div class="row">
+                    <img src="" id="imagemalbun" alt="">
+                    <div class="col">
+                        <div>
+                            <h5 class="text-light">Descrição</h5>
+                            <p class="text-light" id="descricaoalbum"></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6 class="text-light">Diretor</h6>
+                                <p class="text-white" id="diretoralbum"></p>
+                            </div>
+                            <div class="col-md-3">
+                                <h6 class="text-light">Data de Lançamento</h6>
+                                <p class="text-white" id="dataalbum"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1 class="text-white mt-3" id="relacionados_album">Fotos relacionadas a o Poderoso Chefão</h1>
+            <hr>
+            <div class="fotos">
+                <div class="row" id="fotos-album">
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script>
+        const url = "https://jsonserver-1--eduardomeunovon.repl.co/albuns"
+        const idAlbum = new URLSearchParams(window.location.search).get("id");
+        //if (!idAlbum) window.location = "index.html";//
+        const relacionados_album = document.querySelector("#relacionados_album")
+        const tituloalbum = document.querySelector("#tituloalbum");
+        const diretoralbum = document.querySelector("#diretoralbum");
+        const dataalbum = document.querySelector("#dataalbum");
+        const descricaoalbum = document.querySelector("#descricaoalbum");
+        const imagemalbun = document.querySelector("#imagemalbun");
+        const buscarAlbum = async (id) => {
+            const response = await fetch(url + "/" + id);
+            if (response.statusText === "Not Found") {
+                //window.location = "index.html";//
+                console.log(response)
+                return;
+            }
+            const data = await response.json();
+            return data;
+        }
+        (async () => {
+            const {
+                descricao,
+                diretor,
+                url_capa,
+                titulo,
+                data_de_lancamento,
+                latitude,
+                longitude,
+                imagens,
+            } = await buscarAlbum(idAlbum);
+        relacionados_album.textContent = "Relacionados "+titulo
+         tituloalbum.textContent = titulo
+         diretoralbum.textContent = diretor
+         dataalbum.textContent = data_de_lancamento
+         descricaoalbum.textContent = descricao
+         imagemalbun.src = "/img/"+url_capa
+         imagens.forEach(imagem => {
+         document.querySelector("#fotos-album").insertAdjacentHTML("beforeend",`
+         <div class="col-md-3 mb-5"><a href="carrousel2.html"><img src="/img/${imagem.url_imagem}" alt=""></a>
+                        <h4 class="text-light">${imagem.titulo_imagem}</h4>
+                        <p class="text-white"> ${imagem.descricao_imagem}</p>
+                    </div>
+         `)
+            
+        });
+        })();
+    </script>
+</body>
+
+</html>

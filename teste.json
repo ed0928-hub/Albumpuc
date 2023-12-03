@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "url_capa": "filme1.jpg",
+        "titulo": "Taxi Driver",
+        "descricao": "O motorista de táxi de Nova York Travis Bickle, veterano da Guerra do Vietnã, reflete constantemente sobre a corrupção da vida ao seu redor e sente-se cada vez mais perturbado com a própria solidão e alienação.",
+        "longitude": 40.6643,
+        "latitude": -73.9385,
+        "imagens": [
+            {
+                "url_imagem": "taxidriver5.jpg",
+                "titulo_imagem": "Curiosidade Urgente",
+                "descricao_imagem": "Taxi Driver é um filme americano de 1976 dirigido por Martin Scorsese e escrito por Paul Schrader. Este filme icônico é estrelado por Robert De Niro no papel principal como Travis Bickle, um veterano de guerra do Vietnã que se torna um motorista de táxi em Nova York..."
+            },
+            {},
+            {}
+        ],
+        "marcador_ativo": false
+    },
+    {
+        "id": 2,
+        "url_capa": "filme1.jpg",
+        "titulo": "Taxi Driver",
+        "descricao": "O motorista de táxi de Nova York Travis Bickle, veterano da Guerra do Vietnã, reflete constantemente sobre a corrupção da vida ao seu redor e sente-se cada vez mais perturbado com a própria solidão e alienação.",
+        "longitude": 40.6643,
+        "latitude": -73.9385,
+        "imagens": [
+            {
+                "url_imagem": "taxidriver5.jpg",
+                "titulo_imagem": "Curiosidade Urgente",
+                "descricao_imagem": "Taxi Driver é um filme americano de 1976 dirigido por Martin Scorsese e escrito por Paul Schrader. Este filme icônico é estrelado por Robert De Niro no papel principal como Travis Bickle, um veterano de guerra do Vietnã que se torna um motorista de táxi em Nova York..."
+            },
+            {},
+            {}
+        ],
+        "marcador_ativo": false
+    }
+]
